@@ -1,64 +1,157 @@
 #include <Servo.h>
+#include <SoftwareSerial.h>
 
-// Criação dos objetos para controlar os motores
-Servo servo1;
-Servo servo2;
+// ======================================================
+// THE THIRD THUMB
+// Projeto de Lua
+// Arduino Uno
+// ======================================================
 
-// --- CONFIGURAÇÃO DE PINOS ---
-const int PRESSAO_ESQ = A0; // Sensor do pé esquerdo (Entrada Analógica)
-const int PRESSAO_DIR = A1; // Sensor do pé direito (Entrada Analógica)
+// -------------------- SENSORES ------------------------
 
-const int SERVO1_PIN = 9;   // Motor 1 - Movimento Principal (Pino Digital PWM)
-const int SERVO2_PIN = 10;  // Motor 2 - Rotação Lateral (Pino Digital PWM)
+const int SENSOR_PE_ESQUERDO = A0;
+const int SENSOR_PE_DIREITO  = A1;
 
-// --- CONFIGURAÇÃO DE LIMITES DE SEGURANÇA ---
-// Altere os valores MIN e MAX abaixo se precisar que o dedo abra ou feche mais.
-// Evite usar 0 e 180 direto para não forçar as linhas de pesca e as peças de PLA.
-const int ANGULO_MIN = 30;       // Limite mínimo de rotação do motor
-const int ANGULO_MAX = 150;      // Limite máximo de rotação do motor
-const int POSICAO_INICIAL = 90;  // Posição centralizada ao ligar o Arduino
+// -------------------- SERVOS --------------------------
+
+const int SERVO_ESQUERDO_PIN = 9;
+const int SERVO_DIREITO_PIN  = 10;
+
+Servo servoEsquerdo;
+Servo servoDireito;
+
+// -------------------- BLUETOOTH -----------------------
+// Arduino RX = D2
+// Arduino TX = D3
+
+SoftwareSerial bluetooth(2, 3);
+
+// -------------------- LIMITES DOS SERVOS --------------
+// Comece com limites pequenos para testar o mecanismo.
+
+const int SERVO_MIN = 0;
+const int SERVO_MAX = 90;
+
+// -------------------- CALIBRAÇÃO ----------------------
+// Valores iniciais.
+// Ajuste de acordo com os seus sensores.
+
+const int PRESSAO_MIN = 0;
+const int PRESSAO_MAX = 1023;
+
+// -------------------- CONTROLE ------------------------
+
+int valorEsquerdo = 0;
+int valorDireito = 0;
+
+int anguloEsquerdo = 0;
+int anguloDireito = 0;
+
+// ======================================================
+// SETUP
+// ======================================================
 
 void setup() {
-  // Inicializa a comunicação com o computador (Monitor Serial)
+
+  // Inicializa comunicação USB
   Serial.begin(9600);
 
-  // Vincula os motores aos pinos do Arduino
-  servo1.attach(SERVO1_PIN);
-  servo2.attach(SERVO2_PIN);
+  // Inicializa Bluetooth
+  bluetooth.begin(9600);
 
-  // Move os motores para a posição inicial de segurança
-  servo1.write(POSICAO_INICIAL);
-  servo2.write(POSICAO_INICIAL);
+  // Configura sensores
+  pinMode(SENSOR_PE_ESQUERDO, INPUT);
+  pinMode(SENSOR_PE_DIREITO, INPUT);
+
+  // Conecta os servos
+  servoEsquerdo.attach(SERVO_ESQUERDO_PIN);
+  servoDireito.attach(SERVO_DIREITO_PIN);
+
+  // Posição inicial
+  servoEsquerdo.write(0);
+  servoDireito.write(0);
+
+  delay(1000);
+
+  Serial.println("=================================");
+  Serial.println("THE THIRD THUMB");
+  Serial.println("Projeto de Lua");
+  Serial.println("Sistema iniciado!");
+  Serial.println("=================================");
+
+  bluetooth.println("THE THIRD THUMB");
+  bluetooth.println("Sistema iniciado!");
 }
 
+// ======================================================
+// LOOP
+// ======================================================
+
 void loop() {
-  // 1. Lê a pressão das placas dos pés (retorna um valor entre 0 e 1023)
-  int esquerda = analogRead(PRESSAO_ESQ);
-  int direita = analogRead(PRESSAO_DIR);
 
-  // 2. Converte a pressão do pé em ângulo de movimento para o motor
-  int movimento1 = map(esquerda, 0, 1023, ANGULO_MIN, ANGULO_MAX);
-  int movimento2 = map(direita, 0, 1023, ANGULO_MIN, ANGULO_MAX);
+  // Lê os sensores
+  valorEsquerdo = analogRead(SENSOR_PE_ESQUERDO);
+  valorDireito  = analogRead(SENSOR_PE_DIREITO);
 
-  // 3. Garante matematicamente que o motor nunca passe dos limites estipulados
-  movimento1 = constrain(movimento1, ANGULO_MIN, ANGULO_MAX);
-  movimento2 = constrain(movimento2, ANGULO_MIN, ANGULO_MAX);
+  // Converte pressão em ângulo
+  anguloEsquerdo = map(
+    valorEsquerdo,
+    PRESSAO_MIN,
+    PRESSAO_MAX,
+    SERVO_MIN,
+    SERVO_MAX
+  );
 
-  // 4. Envia o comando de movimento para os servomotores do pulso
-  servo1.write(movimento1);
-  servo2.write(movimento2);
+  anguloDireito = map(
+    valorDireito,
+    PRESSAO_MIN,
+    PRESSAO_MAX,
+    SERVO_MIN,
+    SERVO_MAX
+  );
 
-  // 5. Exibe os dados no computador para ajudar você na calibração
-  Serial.print("Pe esquerdo (Sensor): ");
-  Serial.print(esquerda);
-  Serial.print(" -> Angulo Servo 1: ");
-  Serial.print(movimento1);
+  // Garante que os servos não ultrapassem os limites
+  anguloEsquerdo = constrain(
+    anguloEsquerdo,
+    SERVO_MIN,
+    SERVO_MAX
+  );
 
-  Serial.print("  |  Pe direito (Sensor): ");
-  Serial.print(direita);
-  Serial.print(" -> Angulo Servo 2: ");
-  Serial.println(movimento2);
+  anguloDireito = constrain(
+    anguloDireito,
+    SERVO_MIN,
+    SERVO_MAX
+  );
 
-  // Pequena pausa de 20ms para o motor responder fisicamente e evitar trepidações
-  delay(20);
+  // Move os servos
+  servoEsquerdo.write(anguloEsquerdo);
+  servoDireito.write(anguloDireito);
+
+  // Envia informações pelo monitor serial
+  Serial.print("PE ESQUERDO: ");
+  Serial.print(valorEsquerdo);
+
+  Serial.print(" | PE DIREITO: ");
+  Serial.print(valorDireito);
+
+  Serial.print(" | SERVO 1: ");
+  Serial.print(anguloEsquerdo);
+
+  Serial.print(" | SERVO 2: ");
+  Serial.println(anguloDireito);
+
+  // Envia informações pelo Bluetooth
+  bluetooth.print("L:");
+  bluetooth.print(valorEsquerdo);
+
+  bluetooth.print(" R:");
+  bluetooth.print(valorDireito);
+
+  bluetooth.print(" S1:");
+  bluetooth.print(anguloEsquerdo);
+
+  bluetooth.print(" S2:");
+  bluetooth.println(anguloDireito);
+
+  delay(30);
 }
