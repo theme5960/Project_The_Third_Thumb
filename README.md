@@ -1,258 +1,484 @@
-# Third Thumb — Peças e Tutorial de Montagem
+The Third Thumb — Peças, Eletrônica e MontagemSobre o projeto
 
----
+O The Third Thumb é um projeto de dedo robótico vestível desenvolvido por Luã.
 
-# 1. Peças para impressão 3D
+As peças 3D presentes neste repositório são peças próprias deste projeto, desenvolvidas para a montagem do The Third Thumb. Elas não são apresentadas como peças do projeto de outra pessoa.
 
-## Peças em PLA
+O projeto teve como referência de conceito um projeto público de Third Thumb disponível no GitHub, mas esta versão possui adaptações próprias, principalmente na eletrônica e no sistema de controle.
 
-### 1. caseBase.STL
-Quantidade: **1**
+Importante: referência ou inspiração não significa que as peças deste projeto sejam cópias das peças do projeto de referência.
 
-É a base principal da estrutura do Third Thumb.
+Materiais
 
-### 2. caseMid.STL
-Quantidade: **1**
+Esta lista utiliza como base os materiais mecânicos e de montagem do projeto de referência, com as adaptações necessárias para esta versão.
 
-É a parte intermediária da estrutura.
+Eletrônica
 
-### 3. fingerBase.STL
-Quantidade: **1**
+1× Arduino Uno
 
-É a parte inicial/base do dedo mecânico.
+2× Servomotores de 180°
 
-### 4. fingerMid.STL
-Quantidade: **1**
+2× Placas/sensores de pressão
 
-É a parte central do dedo mecânico.
+1 placa de pressão para cada servo
 
-### 5. fingerTip.STL
-Quantidade: **1**
+1× Protoboard
 
-É a ponta do dedo mecânico.
+Fios para conexão
 
-### 6. fingerHolster.STL
-Quantidade: **1**
+Jumpers macho/fêmea, conforme necessário
 
-É o suporte utilizado para prender o conjunto do dedo à estrutura.
+Resistores para os circuitos dos sensores de pressão
 
-### 7. fingerDualAxisHinge.STL
-Quantidade: **1**
+1× cabo USB para o Arduino
 
-É a articulação de dois eixos do mecanismo.
+Alimentação adequada para os servomotores
 
----
+Alterações em relação ao projeto de referência
 
-# 2. Peças em TPU
+Nesta versão:
 
-### 8. servoWheel.STL
-Quantidade: **1**
+Raspberry Pi Pico → Arduino Uno
 
-É uma das rodas que fazem a conexão mecânica com um servo.
+e os sensores utilizados originalmente no projeto de referência são substituídos por:
 
-### 9. servoWheel2.STL
-Quantidade: **1**
+Sensores ECG → 2 placas/sensores de pressão
 
-É a segunda roda de conexão mecânica com o outro servo.
+Cada placa de pressão será utilizada como entrada para controlar um dos dois servomotores.
 
----
+Peças impressas em 3D
 
-# 3. Quantidade total
+As peças abaixo fazem parte do conjunto atual deste projeto.
 
-| Material | Peças | Quantidade |
-|---|---|---:|
-| PLA | caseBase | 1 |
-| PLA | caseMid | 1 |
-| PLA | fingerBase | 1 |
-| PLA | fingerMid | 1 |
-| PLA | fingerTip | 1 |
-| PLA | fingerHolster | 1 |
-| PLA | fingerDualAxisHinge | 1 |
-| TPU | servoWheel | 1 |
-| TPU | servoWheel2 | 1 |
+PLAPeçaQuantidadecaseBase.STL1caseMid.STL1fingerBase.STL1fingerMid.STL1fingerTip.STL1fingerHolster.STL1fingerDualAxisHinge.STL1
 
-**Total: 9 peças**
+Total: 7 peças em PLA
 
-**7 peças em PLA + 2 peças em TPU.**
+TPUPeçaQuantidadeservoWheel.STL1servoWheel2.STL1
 
----
+Total: 2 peças em TPU
 
-# 4. Tutorial de montagem
+Total de peças 3D
 
-## Etapa 1 — Preparar as peças
+9 peças impressas
 
-Depois de imprimir todas as peças:
+Essas são as peças incluídas no pacote atual deste projeto. Não confundir esta lista com a lista de peças 3D do projeto de referência.
 
-1. Retire os suportes de impressão, caso existam.
-2. Retire pequenas rebarbas.
-3. Limpe os furos e encaixes.
-4. Separe as peças por nome.
-5. Não force nenhum encaixe.
+Materiais mecânicos
 
-As peças devem conseguir se movimentar livremente antes da montagem final.
+Linha de pesca de nylon
 
----
+Tubo transparente para guiar a linha
 
-# Etapa 2 — Montar a estrutura
+Velcro
 
-Pegue:
+Parafusos pequenos
 
-- `caseBase.STL`
-- `caseMid.STL`
+Porcas, se necessárias para a montagem
 
-### Montagem:
+Ferramentas para montagem
 
-1. Coloque `caseMid` na posição correspondente sobre `caseBase`.
-2. Alinhe os furos e encaixes.
-3. Fixe as duas peças usando os elementos de fixação previstos no projeto.
-4. Confira se a estrutura ficou firme.
+Alicate
 
----
+Cortador de fios
 
-# Etapa 3 — Montar o suporte
+Furadeira manual de precisão, se necessária
 
-Pegue:
+Ferro de solda, caso seja necessário soldar conexões
 
-- `fingerHolster.STL`
+Pistola de ar quente, caso seja necessária para acabamento dos materiais
 
-### Montagem:
+Álcool isopropílico para limpeza das peças
 
-1. Posicione o `fingerHolster` na estrutura.
-2. Alinhe os pontos de fixação.
-3. Fixe o suporte.
-4. Confira se ele não está torto ou solto.
+Lubrificante adequado para partes mecânicas, quando necessário
 
----
+Como funciona
 
-# Etapa 4 — Montar a base do dedo
+O Third Thumb possui um mecanismo de dedo robótico conectado a dois servomotores.
 
-Pegue:
+Os servomotores funcionam como os "músculos" do sistema.
 
-- `fingerBase.STL`
+A linha de pesca de nylon funciona como um "tendão".
 
-### Montagem:
+Quando um servo gira, ele enrola ou puxa a linha de nylon. Essa força é transmitida pelo caminho da linha até o dedo, fazendo o mecanismo se movimentar.
 
-1. Posicione `fingerBase` no suporte.
-2. Alinhe a região da articulação.
-3. Coloque o eixo/pino correspondente.
-4. Confira se a peça consegue se movimentar.
+O tubo transparente serve como guia para a linha, ajudando a manter o caminho definido.
 
----
+O sistema possui dois servos para controlar movimentos diferentes do mecanismo.
 
-# Etapa 5 — Instalar a articulação
+Sistema de pressão
 
-Pegue:
+A versão deste projeto utiliza duas placas/sensores de pressão.
 
-- `fingerDualAxisHinge.STL`
+A ideia é:
 
-### Montagem:
+Placa de pressão 1 ↓ Arduino Uno ↓ Servo 1 ↓ Movimento do dedo 
 
-1. Posicione a articulação na região correspondente.
-2. Alinhe os furos.
-3. Coloque os eixos/pinos de articulação.
-4. Não aperte demais.
-5. Mova a articulação manualmente.
+e:
 
-Ela deve conseguir se movimentar sem ficar presa.
+Placa de pressão 2 ↓ Arduino Uno ↓ Servo 2 ↓ Movimento do dedo 
 
----
+Assim, cada sensor de pressão pode ser associado a um dos servomotores.
 
-# Etapa 6 — Instalar o meio do dedo
+Quanto maior ou menor for a pressão detectada, o Arduino pode interpretar essa alteração e modificar a posição do servo.
 
-Pegue:
+Montagem mecânica1. Imprima as peças
 
-- `fingerMid.STL`
+Imprima todas as peças do diretório 3D.
 
-### Montagem:
+Separe:
 
-1. Coloque `fingerMid` junto à `fingerBase`.
-2. Alinhe a articulação.
-3. Passe o eixo/pino correspondente.
-4. Mova o segmento para testar.
+PLA
 
-O movimento deve ser suave.
+caseBase.STL
 
----
+caseMid.STL
 
-# Etapa 7 — Instalar a ponta
+fingerBase.STL
 
-Pegue:
+fingerMid.STL
 
-- `fingerTip.STL`
+fingerTip.STL
 
-### Montagem:
+fingerHolster.STL
 
-1. Posicione `fingerTip` na extremidade de `fingerMid`.
-2. Alinhe os pontos de articulação.
-3. Instale o eixo/pino correspondente.
-4. Mova o dedo manualmente.
+fingerDualAxisHinge.STL
 
-A ponta deve acompanhar o movimento do mecanismo.
+TPU
 
----
+servoWheel.STL
 
-# Etapa 8 — Instalar as rodas
+servoWheel2.STL
 
-Pegue:
+Verifique cada peça antes da montagem.
 
-- `servoWheel.STL`
-- `servoWheel2.STL`
+As partes móveis devem conseguir se movimentar sem excesso de atrito.
 
-### Montagem:
+2. Monte o dedo
 
-1. Coloque `servoWheel` no primeiro mecanismo de servo.
-2. Coloque `servoWheel2` no segundo mecanismo de servo.
-3. Verifique se as rodas estão bem encaixadas.
-4. Confira se o movimento das rodas consegue movimentar o mecanismo.
+A montagem do dedo utiliza:
 
-Não force as rodas contra a estrutura.
+fingerBase ↓ fingerMid ↓ fingerTip 
 
----
+As partes são conectadas mecanicamente para formar o dedo.
 
-# 5. Verificação mecânica
+A peça:
 
-Antes de considerar a montagem mecânica concluída:
+fingerDualAxisHinge.STL
 
-- [ ] `caseBase` está firme.
-- [ ] `caseMid` está alinhada.
-- [ ] `fingerHolster` está firme.
-- [ ] `fingerBase` está encaixada.
-- [ ] `fingerDualAxisHinge` está instalada.
-- [ ] `fingerMid` está encaixada.
-- [ ] `fingerTip` está instalada.
-- [ ] `servoWheel` está instalada.
-- [ ] `servoWheel2` está instalada.
-- [ ] Todas as articulações conseguem se mover.
-- [ ] Nenhuma peça está raspando ou travando.
+é utilizada na articulação de dois eixos.
 
----
+O:
 
-# 6. Ordem completa da montagem
+fingerHolster.STL
 
-A ordem geral é:
+serve para sustentar/conectar o conjunto do dedo à estrutura.
 
-```text
-caseBase
-     ↓
-caseMid
-     ↓
-fingerHolster
-     ↓
-fingerBase
-     ↓
-fingerDualAxisHinge
-     ↓
-fingerMid
-     ↓
-fingerTip
-     ↓
-servoWheel
-     +
-servoWheel2
-```
+3. Monte a estrutura
 
----
+Utilize:
 
-#7. RESULTADO ESPERADO
+caseBase.STL
 
-depois da montagem você deve usá-lo mais cuidado num sempre use pq pode alterar seu cérebro
+como parte principal da estrutura.
+
+Depois encaixe:
+
+caseMid.STL
+
+de acordo com a montagem mecânica do projeto.
+
+Verifique se os componentes ficam firmes antes de instalar os servos.
+
+4. Instale os servomotores
+
+Instale os dois servomotores na estrutura.
+
+Cada servo recebe uma roda:
+
+Servo 1 → servoWheel.STL
+
+Servo 2 → servoWheel2.STL
+
+As rodas fazem a conexão mecânica entre os servos e as linhas de nylon.
+
+5. Instale a linha de nylon
+
+Passe a linha de pesca de nylon pelo caminho mecânico previsto para o dedo.
+
+A linha deve passar pelo tubo-guia.
+
+O princípio é:
+
+SERVO │ │ enrola/puxa ▼ Roda do servo │ │ linha de nylon ▼ Tubo-guia │ ▼ Articulação │ ▼ Dedo 
+
+Quando o servo gira, a roda movimenta a linha.
+
+A linha então exerce força sobre o mecanismo do dedo.
+
+Importante
+
+Não deixe a linha excessivamente esticada.
+
+Também não deixe folga excessiva.
+
+O objetivo é encontrar uma tensão que permita o movimento sem travar o mecanismo.
+
+6. Instale o velcro
+
+O velcro serve para prender a estrutura ao local onde o dispositivo será utilizado.
+
+A fixação deve ficar firme, mas não deve apertar excessivamente.
+
+Montagem eletrônica
+
+A arquitetura básica é:
+
+┌──────────────┐ Pressão 1 ───►│ │───► Servo 1 Pressão 2 ───►│ Arduino Uno │───► Servo 2 │ │ └──────────────┘ 
+
+Os sensores fornecem sinais ao Arduino.
+
+O Arduino interpreta esses sinais e controla os servos.
+
+Alimentação dos servos
+
+Os servomotores podem consumir bastante corrente, principalmente durante movimentos ou quando encontram resistência.
+
+Por isso, não é recomendado alimentar os dois servos diretamente pelo pino de 5 V do Arduino Uno.
+
+Uma arquitetura mais segura é:
+
+┌──────────────┐ USB ────────────►│ Arduino Uno │ └──────┬───────┘ │ Sinais │ ┌─────┴─────┐ ▼ ▼ Servo 1 Servo 2 ▲ ▲ │ │ └─────┬─────┘ │ Fonte adequada dos servos 
+
+O GND da alimentação dos servos e o GND do Arduino devem estar em comum para que os sinais de controle tenham uma referência correta.
+
+A fonte utilizada para os servos deve ser adequada à tensão e à corrente exigidas pelos modelos escolhidos.
+
+Sensores de pressão
+
+Cada sensor precisa ser conectado ao Arduino de acordo com o tipo de placa/sensor utilizado.
+
+Uma configuração possível é:
+
+Sensor de pressão 1 → A0 Sensor de pressão 2 → A1 
+
+Os valores lidos em A0 e A1 podem então ser convertidos em posições dos servos.
+
+O circuito exato depende do modelo das placas/sensores de pressão. Não existe um único esquema elétrico válido para todos os sensores.
+
+Exemplo de organização dos pinos
+
+Uma organização possível para esta versão:
+
+FunçãoArduino UnoSensor de pressão 1A0Sensor de pressão 2A1Servo 1D9Servo 2D10GNDGNDAlimentação dos sensoresconforme o sensor
+
+Os pinos podem ser alterados no código caso seja necessário.
+
+Teste antes da montagem completa
+
+Antes de colocar o dispositivo no corpo, faça os testes sobre uma mesa.
+
+Teste 1 — Arduino
+
+Conecte o Arduino ao computador e confirme que ele está funcionando.
+
+Teste 2 — sensores
+
+Abra o monitor serial e observe os valores dos dois sensores.
+
+Pressione cada sensor individualmente.
+
+Verifique se os valores mudam.
+
+Teste 3 — servos
+
+Teste cada servo separadamente.
+
+Comece com movimentos pequenos.
+
+Por exemplo:
+
+90° → 80° → 90° → 100° → 90° 
+
+Observe se existe algum travamento.
+
+Teste 4 — linha
+
+Com o servo desligado, verifique se a linha consegue deslizar pelo tubo.
+
+Teste 5 — mecanismo
+
+Depois de confirmar que tudo funciona individualmente, conecte a linha aos servos e ao dedo.
+
+Faça movimentos lentos.
+
+Calibração
+
+Os sensores de pressão podem apresentar valores diferentes mesmo quando não estão sendo pressionados.
+
+Por isso, é necessário realizar uma calibração.
+
+Um processo básico é:
+
+Ligue o Arduino.
+
+Não pressione os sensores.
+
+Observe os valores.
+
+Pressione levemente cada sensor.
+
+Observe o valor mínimo e máximo.
+
+Defina no código uma faixa de funcionamento.
+
+Teste novamente.
+
+A posição do servo pode então ser calculada a partir da pressão detectada.
+
+Cuidados com a linha de nylon
+
+A linha é uma parte importante do mecanismo.
+
+Se estiver:
+
+Muito frouxa:
+
+o servo gira sem movimentar corretamente o dedo;
+
+existe atraso no movimento.
+
+Muito apertada:
+
+o servo pode ficar sobrecarregado;
+
+o mecanismo pode travar;
+
+as peças podem sofrer esforço desnecessário.
+
+Faça a regulagem aos poucos.
+
+Segurança
+
+Este é um projeto experimental de robótica vestível.
+
+Não é um dispositivo médico.
+
+Durante os testes:
+
+teste primeiro fora do corpo;
+
+mantenha os dedos longe das partes móveis;
+
+não force o mecanismo;
+
+não aperte excessivamente o velcro;
+
+pare o teste se houver dor, dormência ou desconforto;
+
+desligue a alimentação antes de fazer manutenção;
+
+verifique se há peças 3D quebradas ou rachadas;
+
+não deixe o servo pressionar uma articulação contra um limite mecânico;
+
+não deixe fios ou linhas presos nas partes móveis.
+
+O projeto deve ser utilizado somente de maneira controlada e responsável.
+
+Problemas comunsO servo não se movimenta
+
+Verifique:
+
+alimentação;
+
+GND comum;
+
+sinal do servo;
+
+conexão do Arduino;
+
+código;
+
+tensão da fonte.
+
+O servo treme
+
+Possíveis causas:
+
+alimentação insuficiente;
+
+ruído no sinal;
+
+conexão ruim;
+
+mecanismo oferecendo resistência;
+
+linha excessivamente tensionada.
+
+O dedo não se movimenta
+
+Verifique:
+
+linha de nylon;
+
+tubo-guia;
+
+roda do servo;
+
+articulação;
+
+alinhamento das peças;
+
+tensão da linha.
+
+O sensor não responde
+
+Verifique:
+
+alimentação;
+
+GND;
+
+conexão do sinal;
+
+resistor utilizado;
+
+tipo específico do sensor;
+
+valores observados no monitor serial.
+
+Estrutura do projetoThe_Third_Thumb/ │ ├── 3D/ │ ├── PLA/ │ │ ├── caseBase.STL │ │ ├── caseMid.STL │ │ ├── fingerBase.STL │ │ ├── fingerMid.STL │ │ ├── fingerTip.STL │ │ ├── fingerHolster.STL │ │ └── fingerDualAxisHinge.STL │ │ │ └── TPU/ │ ├── servoWheel.STL │ └── servoWheel2.STL │ ├── Código aberto/ │ └── código do Arduino │ └── README.md Referência
+
+Este projeto utiliza como referência de conceito o projeto público Third Thumb Project, disponível no GitHub.
+
+A referência foi utilizada para estudar a ideia geral de um terceiro polegar robótico vestível e seu sistema mecânico.
+
+Entretanto, as peças 3D deste repositório pertencem a este projeto e foram desenvolvidas para esta versão.
+
+A eletrônica também foi adaptada:
+
+Projeto de referência Raspberry Pi Pico + 2 sensores ECG ↓ Esta versão Arduino Uno + 2 sensores/placas de pressão + 2 servomotores 
+
+Referência original:
+https://github.com/laxmangordon/Third-Thumb-Project
+
+Créditos
+
+Projeto: The Third Thumb
+Desenvolvimento e adaptação: Luã
+
+As peças 3D deste repositório fazem parte deste projeto.
+
+A ideia geral foi estudada a partir de projetos públicos de Third Thumb, mas esta versão possui sua própria organização, peças e adaptação eletrônica.
+
+Licença
+
+Consulte o arquivo de licença deste repositório para saber como o projeto pode ser utilizado, modificado e redistribuído.
+
+Status
+
+Projeto em desenvolvimento.
+
+A montagem pode ser atualizada conforme novos testes mecânicos e eletrônicos forem realizados.
+
